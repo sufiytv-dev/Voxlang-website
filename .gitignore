@@ -1,0 +1,31 @@
+# Tailwind CSS local executable (if you use it locally)
+tailwindcss-windows-x64.exe
+tailwindcss-linux-x64
+tailwindcss-macos-arm64
+
+# Build output directories (if you ever compile CSS locally)
+/dist
+/src
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

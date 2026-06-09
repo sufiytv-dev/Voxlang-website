@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en" class="bg-[#0b0c10] text-[#ecf0f1] scheme-dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Voxlang Documentation</title>
+        <meta
+            name="description"
+            content="Voxlang language documentation: installation, syntax, standard library, GPU kernels, and C bridge."
+        />
+
+        <!-- OpenGraph / Social -->
+        <meta property="og:title" content="Voxlang Documentation" />
+        <meta
+            property="og:description"
+            content="Complete reference for the Voxlang systems programming language."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://vox-lang.com/docs.html" />
+        <meta property="og:image" content="https://vox-lang.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+
+        <!-- Tailwind CSS + custom additions -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Markdown + highlight.js -->
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+        <style>
+            body {
+                background-color: #0b0c10;
+            }
+            :root {
+                --color-cotton-pink: #ffb8d2;
+                --color-cotton-pink-hot: #ff7eb3;
+            }
+            .code-block {
+                background-color: #0a0b0f;
+                border: 1px solid #1f2937;
+                border-radius: 0.75rem;
+                font-family:
+                    "SF Mono", "Fira Code", "JetBrains Mono", monospace;
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+            ::selection {
+                background-color: #ff7eb3;
+                color: #000000;
+            }
+            /* Sidebar active link style */
+            .doc-sidebar a.active {
+                color: #ffb8d2;
+                border-left-color: #ff7eb3;
+                background-color: rgba(255, 126, 179, 0.1);
+            }
+            /* Markdown content styling */
+            .markdown-body {
+                color: #ecf0f1;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            .markdown-body h1,
+            .markdown-body h2,
+            .markdown-body h3 {
+                color: #ffb8d2;
+                font-family: monospace;
+                margin-top: 1.5em;
+                margin-bottom: 0.5em;
+            }
+            .markdown-body h1 {
+                font-size: 2rem;
+                border-bottom: 1px solid #2c3e50;
+            }
+            .markdown-body h2 {
+                font-size: 1.5rem;
+            }
+            .markdown-body a {
+                color: #22d3ee;
+                text-decoration: underline;
+            }
+            .markdown-body pre {
+                background-color: #0a0b0f;
+                border-radius: 0.75rem;
+                padding: 1rem;
+                overflow-x: auto;
+            }
+            .markdown-body code {
+                font-family: "SF Mono", monospace;
+                background-color: #1f2937;
+                padding: 0.2rem 0.4rem;
+                border-radius: 0.375rem;
+                font-size: 0.85rem;
+            }
+            .markdown-body pre code {
+                background-color: transparent;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body class="antialiased font-sans">
+        <header
+            class="max-w-6xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center border-b border-zinc-800 gap-4"
+        >
+            <div
+                class="text-xl font-mono font-bold tracking-wider text-cyan-400"
+            >
+                <a href="index.html" class="hover:text-cyan-300">VOXLANG</a>
+            </div>
+            <nav class="flex gap-6 font-mono text-sm text-zinc-400">
+                <a
+                    href="https://github.com/sufiytv-dev/Voxlang"
+                    class="hover:text-white transition"
+                    >GitHub</a
+                >
+                <a href="docs.html" class="text-white border-b border-[#ff7eb3]"
+                    >Documentation</a
+                >
+                <a href="changelog.html" class="hover:text-white transition"
+                    >Changelog</a
+                >
+                <a
+                    href="https://github.com/sufiytv-dev/Voxlang/releases"
+                    class="hover:text-white transition"
+                    >Releases</a
+                >
+            </nav>
+        </header>
+
+        <div class="max-w-7xl mx-auto px-6 py-10">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Sidebar (Table of Contents) -->
+                <aside class="md:w-64 shrink-0">
+                    <div
+                        class="sticky top-8 bg-zinc-950/60 border border-zinc-800 rounded-xl p-4"
+                    >
+                        <h3
+                            class="font-mono text-cyan-400 text-sm uppercase tracking-wider mb-3"
+                        >
+                            Documentation
+                        </h3>
+                        <ul class="doc-sidebar space-y-1 text-sm font-mono">
+                            <li>
+                                <a
+                                    href="#"
+                                    data-doc="install"
+                                    class="active block py-2 px-3 rounded-l-lg border-l-2 border-[#ff7eb3] text-[#ffb8d2]"
+                                    >Installation</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    data-doc="language"
+                                    class="block py-2 px-3 rounded-l-lg border-l-2 border-transparent hover:border-zinc-600"
+                                    >Language Syntax</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    data-doc="stdlib"
+                                    class="block py-2 px-3 rounded-l-lg border-l-2 border-transparent hover:border-zinc-600"
+                                    >Standard Library</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    data-doc="gpu"
+                                    class="block py-2 px-3 rounded-l-lg border-l-2 border-transparent hover:border-zinc-600"
+                                    >GPU Kernels</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    data-doc="c_bridge"
+                                    class="block py-2 px-3 rounded-l-lg border-l-2 border-transparent hover:border-zinc-600"
+                                    >C Bridge</a
+                                >
+                            </li>
+                        </ul>
+                        <div class="mt-6 pt-4 border-t border-zinc-800">
+                            <h3
+                                class="font-mono text-cyan-400 text-sm uppercase tracking-wider mb-3"
+                            >
+                                Resources
+                            </h3>
+                            <ul class="space-y-1 text-xs">
+                                <li>
+                                    <a
+                                        href="https://github.com/sufiytv-dev/Voxlang/blob/main/README.md"
+                                        class="hover:text-[#ffb8d2]"
+                                        >GitHub README</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/sufiytv-dev/Voxlang/blob/main/CONTRIBUTING.md"
+                                        class="hover:text-[#ffb8d2]"
+                                        >Contributing Guide</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/sufiytv-dev/Voxlang/security"
+                                        class="hover:text-[#ffb8d2]"
+                                        >Security Policy</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content: Rendered Markdown -->
+                <main
+                    class="flex-1 bg-zinc-950/40 border border-zinc-800 rounded-2xl p-6 md:p-8"
+                >
+                    <div id="doc-content" class="markdown-body">
+                        <div class="flex justify-center items-center h-64">
+                            <div class="text-zinc-500">
+                                Loading documentation...
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Footer (identical to index.html) -->
+        <footer class="border-t border-zinc-800 bg-zinc-950/40 mt-16">
+            <div class="max-w-5xl mx-auto px-6 py-12">
+                <div class="flex flex-wrap justify-between gap-8">
+                    <div class="space-y-3">
+                        <div class="text-cyan-400 font-mono font-bold text-lg">
+                            VOXLANG
+                        </div>
+                        <p class="text-xs text-zinc-500 max-w-xs">
+                            Correctness you can prove. Binaries you can trust.
+                        </p>
+                        <div class="flex gap-3 text-xs text-zinc-600">
+                            <span>MIT License</span>
+                            <span>•</span>
+                            <span>Apache 2.0 (runtime)</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-12 flex-wrap">
+                        <div>
+                            <h4 class="text-sm font-mono text-zinc-400 mb-2">
+                                Project
+                            </h4>
+                            <ul class="text-xs space-y-1.5 text-zinc-500">
+                                <li>
+                                    <a
+                                        href="https://github.com/sufiytv-dev/Voxlang"
+                                        class="hover:text-[#ffb8d2]"
+                                        >GitHub</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/sufiytv-dev/Voxlang/blob/main/SECURITY.md"
+                                        class="hover:text-[#ffb8d2]"
+                                        >Security Policy</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/sufiytv-dev/Voxlang/blob/main/CONTRIBUTING.md"
+                                        class="hover:text-[#ffb8d2]"
+                                        >Contributing Guide</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-mono text-zinc-400 mb-2">
+                                Community
+                            </h4>
+                            <ul class="text-xs space-y-1.5 text-zinc-500">
+                                <li>
+                                    <a href="#" class="hover:text-[#ffb8d2]"
+                                        >Matrix #voxlang</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-[#ffb8d2]"
+                                        >Discord (read-only mirror)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#" class="hover:text-[#ffb8d2]"
+                                        >RFCs / Design notes</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-mono text-zinc-400 mb-2">
+                                Legal
+                            </h4>
+                            <ul class="text-xs space-y-1.5 text-zinc-500">
+                                <li>© 2025 Voxlang Authors</li>
+                                <li>No telemetry, no CLA</li>
+                                <li>Independent infrastructure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="text-center text-[10px] text-zinc-700 mt-12 pt-6 border-t border-zinc-800/50"
+                >
+                    Voxlang is not affiliated with any corporation. Zero
+                    backdoors, zero crash reporters, zero external data
+                    collection.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Map doc IDs to their Markdown file URLs (raw GitHub)
+            const docFiles = {
+                install:
+                    "https://raw.githubusercontent.com/sufiytv-dev/Voxlang/main/docs/install.md",
+                language:
+                    "https://raw.githubusercontent.com/sufiytv-dev/Voxlang/main/docs/language.md",
+                stdlib: "https://raw.githubusercontent.com/sufiytv-dev/Voxlang/main/docs/stdlib.md",
+                gpu: "https://raw.githubusercontent.com/sufiytv-dev/Voxlang/main/docs/gpu.md",
+                c_bridge:
+                    "https://raw.githubusercontent.com/sufiytv-dev/Voxlang/main/docs/c_bridge.md",
+            };
+
+            // Fallback content for when .md files don't exist yet (placeholders)
+            const fallbackContent = {
+                install: `# Installation
+
+**Voxlang** is a verified heterogeneous systems language. Currently, the compiler is written in Rust and uses Z3 for refinement verification. Prebuilt binaries are available for Windows, Linux, and macOS, but **they still require the dependencies listed below**.
+
+---
+
+## Prerequisites (Required for all users)
+
+Regardless of whether you use the prebuilt binary or build from source, you **must** have the following installed:
+
+- **Rust (stable toolchain)** – Install via [rustup](https://rustup.rs/)
+- **MSVC** (Windows only) – We recommend installing via [Scoop](https://scoop.sh/):
+  \`\`\`powershell
+  scoop install msvc
+  \`\`\`
+  Alternatively, use Visual Studio Build Tools (C++ workload).
+- **Z3 Prover** – Required for refinement type verification.
+  Download from [Z3 GitHub](https://github.com/Z3Prover/z3/releases) or use your system package manager.
+  Ensure \`z3\` is in your \`PATH\`.
+
+- **GPU Development Drivers** (optional, for GPU kernels)
+  - NVIDIA: CUDA Toolkit
+  - AMD: ROCm/HIP
+  CPU fallback works for testing if no GPU is available.
+
+---
+
+## Quick Install (Prebuilt Binary)
+
+The install scripts (hosted in the website repository) download a standalone binary of the Voxlang compiler. After running one of these commands, the binary will be placed in \`~/.vox/bin\` and added to your \`PATH\`. **You still need the prerequisites above.**
+
+- **Windows (PowerShell)**:
+  \`\`\`powershell
+  powershell -c "irm https://raw.githubusercontent.com/sufiytv-dev/Voxlang-website/main/install.ps1 | iex"
+  \`\`\`
+
+- **Linux / macOS**:
+  \`\`\`bash
+  curl -fsSL https://raw.githubusercontent.com/sufiytv-dev/Voxlang-website/main/install.sh | sh
+  \`\`\`
+
+After installation, open a new terminal and verify:
+\`\`\`bash
+vox --version
+\`\`\`
+
+---
+
+## Manual Download (Alternative)
+
+If you prefer to download the binary manually, visit the [Releases page](https://github.com/sufiytv-dev/Voxlang/releases). Choose the appropriate file for your OS, make it executable (Linux/macOS), and place it in a directory that is in your \`PATH\`.
+**Remember: the prerequisites are still required.**
+
+---
+
+## Building from Source (for contributors)
+
+If you want to build the compiler from source (to contribute or to get the latest unreleased changes), follow these steps.
+
+### Prerequisites (already covered above)
+
+Make sure Rust, MSVC (Windows), and Z3 are installed and in your \`PATH\`.
+
+### Clone and Build
+
+\`\`\`bash
+git clone https://github.com/sufiytv-dev/Voxlang
+cd Voxlang
+cargo build --release
+\`\`\`
+
+The binary will be at \`target/release/vox\` (or \`vox.exe\` on Windows).
+Copy it to a directory in your \`PATH\` (or use \`cargo install --path .\`).
+
+---
+
+## Next Steps
+
+Once installed and prerequisites are satisfied, check out the [Language Syntax](#language) guide and try writing your first verified program.
+`,
+                language: `# Language Syntax
+
+> **Note**: This page is a placeholder. Full language reference will be added soon.
+
+Voxlang syntax is intentionally different from C. Key rules:
+
+- **No semicolons** – statements end with newline.
+- **No opening brace \`{\`** – blocks end with \`}\` on its own line.
+- **Comments** start with \`#\`.
+- **Boolean conditions** are integers: \`0\` = false, non‑zero = true.
+- **Logical operators**: \`and\`, \`or\`, \`not\`.
+
+## Example
+
+\`\`\`vox
+fn main() -> i32:
+    let x = 42
+    if x > 0:
+        return x
+    } else:
+        return 0
+    }
+}
+\`\`\`
+
+## Ownership and Borrowing
+
+Voxlang uses an affine type system (like Rust). Values are moved by default.
+
+\`\`\`vox
+fn take(s: String) { }
+
+fn main():
+    let s = String("hello")
+    take(s)   # s is moved, cannot use again
+}
+\`\`\`
+
+## Refinement Types
+
+Functions can have preconditions and postconditions verified by Z3.
+
+\`\`\`vox
+fn divide(a: i32, b: i32 where b != 0) -> i32 where result == a / b:
+    return a / b
+}
+\`\`\`
+`,
+                stdlib: `# Standard Library
+
+Placeholder for standard library documentation.
+
+## Built-in Types
+
+- \`i8\`, \`i16\`, \`i32\`, \`i64\` – signed integers
+- \`u8\`, \`u16\`, \`u32\`, \`u64\` – unsigned integers
+- \`f32\`, \`f64\` – floating point
+- \`bool\` – actually \`i32\` with 0/1 semantics
+- \`String\` – heap-allocated UTF-8 string
+- \`Vec<T>\` – growable array
+- \`HashMap<K,V>\` – hash map
+- \`Option<T>\` and \`Result<T,E>\`
+
+## Common Functions
+
+\`\`\`vox
+let mut v = Vec::new()
+push(v, 10)
+let len = len(v)        # returns usize
+let last = pop(v)       # returns Option<i32>
+\`\`\`
+
+More details coming soon.
+`,
+                gpu: `# GPU Kernels
+
+Voxlang supports first-class heterogeneous computing with \`@kernel\` functions.
+
+## Writing a Kernel
+
+\`\`\`vox
+@kernel fn add(a: i32, b: i32, result: &mut i32):
+    *result = a + b
+}
+\`\`\`
+
+## Launching Kernels
+
+Kernels are launched via the runtime API (target-specific). Example for HIP:
+
+\`\`\`vox
+let mut out = 0
+launch_kernel(add, 1, 1, 5, 7, &mut out)
+# out == 12
+\`\`\`
+
+## Supported Backends
+
+- **CUDA** (NVIDIA GPUs)
+- **ROCm/HIP** (AMD GPUs)
+- **CPU fallback** (for testing)
+
+The compiler uses the same verification for GPU code – no extra safety guarantees needed.
+`,
+                c_bridge: `# C Bridge
+
+Voxlang can import C headers directly and generate safe wrappers.
+
+## Import Syntax
+
+\`\`\`vox
+import "SDL.h"
+import "math.h"
+\`\`\`
+
+## How It Works
+
+The compiler parses the C header, then:
+
+1. Checks for null pointers and adds preconditions.
+2. Infers buffer lengths from parameters (when possible).
+3. Generates Voxlang bindings with ownership tracking.
+4. Caches the generated code.
+
+## Example
+
+Given \`mylib.h\`:
+
+\`\`\`c
+void process_buffer(int* data, size_t len);
+\`\`\`
+
+Import and use safely:
+
+\`\`\`vox
+import "mylib.h"
+
+fn main():
+    let mut arr = [1, 2, 3]
+    process_buffer(&mut arr, len(arr))  # automatically checked
+}
+\`\`\`
+
+All pointer parameters are verified to be non-null and within bounds.
+`,
+            };
+
+            const contentDiv = document.getElementById("doc-content");
+            let currentDoc = "install";
+
+            async function loadDocument(docId) {
+                // Update active sidebar link
+                document.querySelectorAll(".doc-sidebar a").forEach((link) => {
+                    if (link.getAttribute("data-doc") === docId) {
+                        link.classList.add(
+                            "active",
+                            "border-[#ff7eb3]",
+                            "text-[#ffb8d2]",
+                        );
+                        link.style.borderLeftColor = "#ff7eb3";
+                    } else {
+                        link.classList.remove(
+                            "active",
+                            "border-[#ff7eb3]",
+                            "text-[#ffb8d2]",
+                        );
+                        link.style.borderLeftColor = "transparent";
+                    }
+                });
+
+                contentDiv.innerHTML =
+                    '<div class="flex justify-center items-center h-64"><div class="text-zinc-500">Loading...</div></div>';
+
+                const url = docFiles[docId];
+                if (!url) {
+                    contentDiv.innerHTML =
+                        '<div class="text-red-400">Document not found.</div>';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok)
+                        throw new Error(`HTTP ${response.status}`);
+                    let markdown = await response.text();
+                    if (
+                        !markdown.trim() ||
+                        markdown.trim().startsWith("# Placeholder")
+                    ) {
+                        throw new Error("Empty or placeholder file");
+                    }
+                    renderMarkdown(markdown);
+                } catch (err) {
+                    console.warn(
+                        `Failed to fetch ${url}, using fallback content.`,
+                        err,
+                    );
+                    const fallback =
+                        fallbackContent[docId] ||
+                        `# ${docId}\n\nDocumentation not available yet. Please check back later.`;
+                    renderMarkdown(fallback);
+                }
+            }
+
+            function renderMarkdown(markdown) {
+                marked.setOptions({
+                    highlight: function (code, lang) {
+                        if (lang && hljs.getLanguage(lang)) {
+                            try {
+                                return hljs.highlight(code, { language: lang })
+                                    .value;
+                            } catch (e) {}
+                        }
+                        return code;
+                    },
+                    langPrefix: "hljs language-",
+                    breaks: true,
+                });
+                const html = marked.parse(markdown);
+                contentDiv.innerHTML = html;
+                document
+                    .querySelectorAll("#doc-content pre code")
+                    .forEach((block) => {
+                        hljs.highlightElement(block);
+                    });
+            }
+
+            // Event listeners for sidebar links
+            document.querySelectorAll(".doc-sidebar a").forEach((link) => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const docId = link.getAttribute("data-doc");
+                    if (docId) {
+                        currentDoc = docId;
+                        loadDocument(docId);
+                        window.location.hash = docId;
+                    }
+                });
+            });
+
+            // Load initial doc based on URL hash
+            const hash = window.location.hash.substring(1);
+            if (hash && docFiles[hash]) {
+                currentDoc = hash;
+                loadDocument(hash);
+            } else {
+                loadDocument("install");
+            }
+
+            // Handle hash change
+            window.addEventListener("hashchange", () => {
+                const newHash = window.location.hash.substring(1);
+                if (newHash && docFiles[newHash]) {
+                    loadDocument(newHash);
+                    document
+                        .querySelectorAll(".doc-sidebar a")
+                        .forEach((link) => {
+                            if (link.getAttribute("data-doc") === newHash) {
+                                link.classList.add(
+                                    "active",
+                                    "border-[#ff7eb3]",
+                                    "text-[#ffb8d2]",
+                                );
+                                link.style.borderLeftColor = "#ff7eb3";
+                            } else {
+                                link.classList.remove(
+                                    "active",
+                                    "border-[#ff7eb3]",
+                                    "text-[#ffb8d2]",
+                                );
+                                link.style.borderLeftColor = "transparent";
+                            }
+                        });
+                }
+            });
+        </script>
+    </body>
+</html>
