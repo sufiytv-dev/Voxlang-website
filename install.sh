@@ -40,7 +40,7 @@ if [ "$OS" = "darwin" ]; then
     BINARY_NAME="vxm-macos-amd64"
 fi
 
-VOX_URL="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.3-bootstrap/${BINARY_NAME}"
+VOX_URL="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/${BINARY_NAME}"
 INSTALL_DIR="$HOME/.vox/bin"
 VOX_PATH="$INSTALL_DIR/vox"
 

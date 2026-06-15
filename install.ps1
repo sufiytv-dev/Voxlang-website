@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $InstallDir = Join-Path $env:USERPROFILE ".vox\bin"
-$VoxUrl = "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.3-bootstrap/vxm-windows-amd64.exe"
+$VoxUrl = "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/vxm-windows-amd64.exe"
 $VoxPath = Join-Path $InstallDir "vox.exe"
 
 Write-Host ""
