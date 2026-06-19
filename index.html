@@ -131,7 +131,7 @@
                     <span
                         class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                     ></span>
-                    v0.4 Bootstrap — AMD/HIP Supported, 31/31 tests passing
+                    v0.5 Bootstrap — AMD/HIP Supported, 31/31 tests passing
                 </div>
                 <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-6">
                     Verified Heterogeneous <br />
@@ -160,7 +160,7 @@
                     </a>
                 </div>
 
-                <!-- Download Card + Dynamic OS Detection (v0.4) -->
+                <!-- Download Card + Dynamic OS Detection (v0.5) -->
                 <div
                     class="max-w-md mx-auto p-4 bg-zinc-950 border border-zinc-800 rounded-xl font-mono text-left shadow-2xl"
                 >
@@ -185,28 +185,28 @@
                         id="download-btn"
                         class="w-full bg-[#ff7eb3] hover:bg-[#ffb8d2] text-black font-semibold py-2.5 px-4 rounded-lg transition text-sm"
                     >
-                        ⬇ Download Standalone Toolchain (v0.4)
+                        ⬇ Download Standalone Toolchain (v0.5)
                     </button>
                     <div
                         class="mt-4 text-center text-xs text-zinc-500 border-t border-zinc-900 pt-3 flex justify-center gap-4 flex-wrap"
                     >
                         <a
-                            href="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/vxm-windows-amd64.exe"
+                            href="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.5-bootstrap/vxm-windows-amd64.exe"
                             class="hover:text-[#ffb8d2]"
                             >Windows .exe</a
                         >
                         <a
-                            href="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/vxm-linux-amd64"
+                            href="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.5-bootstrap/vxm-linux-amd64"
                             class="hover:text-[#ffb8d2]"
                             >Linux x86_64</a
                         >
                         <a
-                            href="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/vxm-macos-amd64"
+                            href="https://github.com/sufiytv-dev/Voxlang/releases/download/v0.5-bootstrap/vxm-macos-amd64"
                             class="hover:text-[#ffb8d2]"
                             >macOS ARM64 / Intel</a
                         >
                         <a
-                            href="https://github.com/sufiytv-dev/Voxlang/tree/v0.4-bootstrap"
+                            href="https://github.com/sufiytv-dev/Voxlang/tree/v0.5-bootstrap"
                             class="hover:text-[#ffb8d2]"
                             >Source (GitHub)</a
                         >
@@ -551,7 +551,7 @@
         </footer>
 
         <script>
-            // Dynamic OS detection for install command + download links (v0.4)
+            // Dynamic OS detection for install command + download links (v0.5)
             const osLabel = document.getElementById("os-label");
             const installCmd = document.getElementById("install-cmd");
             const downloadBtn = document.getElementById("download-btn");
@@ -576,20 +576,20 @@
                 installScriptUrl =
                     "curl -fsSL https://raw.githubusercontent.com/sufiytv-dev/Voxlang-website/main/install.sh | sh";
                 directDownloadUrl =
-                    "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/vxm-macos-amd64";
+                    "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.5-bootstrap/vxm-macos-amd64";
             } else if (detectedOS === "linux") {
                 osLabel.textContent =
                     "Linux x86_64 / aarch64 (CUDA & ROCm ready)";
                 installScriptUrl =
                     "curl -fsSL https://raw.githubusercontent.com/sufiytv-dev/Voxlang-website/main/install.sh | sh";
                 directDownloadUrl =
-                    "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/vxm-linux-amd64";
+                    "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.5-bootstrap/vxm-linux-amd64";
             } else {
                 osLabel.textContent = "Windows x64 (MSVC)";
                 installScriptUrl =
                     'powershell -c "irm https://raw.githubusercontent.com/sufiytv-dev/Voxlang-website/main/install.ps1 | iex"';
                 directDownloadUrl =
-                    "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.4-bootstrap/vxm-windows-amd64.exe";
+                    "https://github.com/sufiytv-dev/Voxlang/releases/download/v0.5-bootstrap/vxm-windows-amd64.exe";
             }
 
             installCmd.textContent = installScriptUrl;
